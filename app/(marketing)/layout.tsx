@@ -20,18 +20,27 @@ export default async function MarketingLayout({
         <div className="container ">
           <div className="flex h-20 items-center justify-between py-2">
               <MainNav items={marketingConfig.mainNav} />
-              <DocsSearch className="mx-6 w-full" />
-            <nav>
+              <DocsSearch className="mx-6 w-full" inputProps={{placeholder:"Study sets,textbooks, questions"}} />
+            <div className="flex max-w-max">
               <Link
                 href="/login"
                 className={cn(
-                  buttonVariants({ variant: "secondary", size: "sm" }),
-                  "px-4 max-w-max"
+                  buttonVariants({ variant: "outline", size: "lg" }),
+                  "px-4 whitespace-nowrap mx-2"
                 )}
               >
-                Login
+               Login
               </Link>
-            </nav>
+              <Link
+                href="/sign-up"
+                className={cn(
+                  buttonVariants({ variant: "default", size: "lg" }),
+                  "px-4 whitespace-nowrap mx-2"
+                )}
+              >
+                Sign Up
+              </Link>
+            </div>
           </div>
         </div>
       </header>

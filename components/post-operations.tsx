@@ -2,7 +2,6 @@
 
 import * as React from "react"
 import Link from "next/link"
-import { useRouter } from "next/navigation"
 import { Post } from "@prisma/client"
 
 import {
@@ -46,7 +45,6 @@ interface PostOperationsProps {
 }
 
 export function PostOperations({ post }: PostOperationsProps) {
-  const router = useRouter()
   const [showDeleteAlert, setShowDeleteAlert] = React.useState<boolean>(false)
   const [isDeleteLoading, setIsDeleteLoading] = React.useState<boolean>(false)
 
