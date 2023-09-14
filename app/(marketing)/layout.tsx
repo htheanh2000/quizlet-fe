@@ -32,7 +32,7 @@ export default async function MarketingLayout({
                Login
               </Link>
               <Link
-                href="/sign-up"
+                href="/register"
                 className={cn(
                   buttonVariants({ variant: "default", size: "lg" }),
                   "px-4 whitespace-nowrap mx-2"

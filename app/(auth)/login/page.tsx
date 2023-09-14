@@ -51,11 +51,11 @@ export default function LoginPage() {
         <div className="w-full max-w-3xl mx-auto px-8 2xl:px-20  pt-16  ">
           <div className="flex ">
             <Link
-              href={"/sign-up"}
+              href={"/register"}
               className={cn(
                 "text-3xl font-semibold text-gray-700 decoration-pink-600 decoration-wavy underline-offset-8 hover:underline",
                 {
-                  "text-black underline": pathName === "/sign-up",
+                  "text-black underline": pathName === "/register",
                 }
               )}
             >
@@ -102,8 +102,8 @@ export default function LoginPage() {
             </p>
             <div className="h-[1px] w-full bg-slate-300" />
           </div>
-
-          <form>
+          <UserAuthForm />
+          {/* <form>
             <div className="mt-8">
               <label>Email</label>
               <Input
@@ -158,13 +158,13 @@ export default function LoginPage() {
             <div className="mt-16 p-0 m-0 h-16 w-full border-gray-200 border-2 flex items-center justify-center">
                 New to Sophie ?{" "}
                 <Link
-                  href="/sign-up"
+                  href="/register"
                   className="font-semibold ml-1 text-cyan-500"
                 >
                   Create an account
                 </Link>
             </div>
-          </form>
+          </form> */}
         </div>
       </div>
     </div>
