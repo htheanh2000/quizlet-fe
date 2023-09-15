@@ -49,7 +49,7 @@ export default function LoginPage() {
           </h1>
         </div>
         <div className="w-full max-w-3xl mx-auto px-8 2xl:px-20  pt-16  ">
-          <div className="flex ">
+          {/* <div className="flex ">
             <Link
               href={"/register"}
               className={cn(
@@ -72,36 +72,8 @@ export default function LoginPage() {
             >
               Log in
             </Link>
-          </div>
-          <div className="mt-16">
-            <button
-              type="button"
-              className={cn(
-                buttonVariants({ variant: "outline" }),
-                "mb-4 w-full py-8"
-              )}
-            >
-              <Icons.google className="h-8 w-8"></Icons.google>
-              <p className="ml-4">Login with Google</p>
-            </button>
-            <button
-              type="button"
-              className={cn(
-                buttonVariants({ variant: "outline" }),
-                "mb-4 w-full py-8"
-              )}
-            >
-              <Icons.facebook className="h-8 w-8"></Icons.facebook>
-              <p className="ml-4">Login with Facebook</p>
-            </button>
-          </div>
-          <div className="mt-4 flex w-full items-center justify-center">
-            <div className="h-[1px] w-full bg-slate-300" />
-            <p className="mx-4 whitespace-nowrap text-sm font-semibold uppercase text-slate-600">
-              Or email
-            </p>
-            <div className="h-[1px] w-full bg-slate-300" />
-          </div>
+          </div> */}
+         
           <UserAuthForm />
           {/* <form>
             <div className="mt-8">

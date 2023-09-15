@@ -28,6 +28,9 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
     resolver: zodResolver(userAuthSchema),
   })
   const [isLoading, setIsLoading] = React.useState<boolean>(false)
+  const [isGmailLoading, setIsGmailLoading] = React.useState<boolean>(false)
+  const [isFacebookLoading, setIsFacebookLoading] =
+    React.useState<boolean>(false)
   const [isGitHubLoading, setIsGitHubLoading] = React.useState<boolean>(false)
   const searchParams = useSearchParams()
 
@@ -58,6 +61,59 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
 
   return (
     <div className={cn("grid gap-6", className)} {...props}>
+      <div className="mt-16">
+        {/* Google sign in */}
+        <button
+          type="button"
+          className={cn(
+            buttonVariants({ variant: "outline" }),
+            "mb-4 w-full py-8"
+          )}
+          onClick={() => {
+            setIsGmailLoading(true)
+            signIn("google")
+          }}
+          disabled={isLoading || isGmailLoading}
+        >
+          {isGmailLoading ? (
+            <Icons.spinner className="mr-2 h-8 w-8 animate-spin" />
+          ) : (
+            <Icons.google className="mr-2 h-8 w-8" />
+          )}{" "}
+          <p className="ml-4">Login with Google</p>
+        </button>
+        {/* Facebook sign in */}
+        <button
+          type="button"
+          className={cn(
+            buttonVariants({ variant: "outline" }),
+            "mb-4 w-full py-8"
+          )}
+          onClick={() => {
+            setIsFacebookLoading(true)
+            signIn("facebook")
+          }}
+          disabled={isLoading || isFacebookLoading}
+        >
+          {isFacebookLoading ? (
+            <Icons.spinner className="mr-2 h-8 w-8 animate-spin" />
+          ) : (
+            <Icons.facebook className="mr-2 h-8 w-8" />
+          )}{" "}
+          <p className="ml-4">Login with Facebook</p>
+        </button>
+      </div>
+      {/* Email sign in/ Magic link */}
+      <div className="relative">
+        <div className="absolute inset-0 flex items-center">
+          <span className="w-full border-t" />
+        </div>
+        <div className="relative flex justify-center text-xs uppercase">
+          <span className="bg-background px-2 text-muted-foreground">
+            Or email
+          </span>
+        </div>
+      </div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="grid gap-2">
           <div className="grid gap-1">
@@ -88,32 +144,6 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
           </button>
         </div>
       </form>
-      <div className="relative">
-        <div className="absolute inset-0 flex items-center">
-          <span className="w-full border-t" />
-        </div>
-        <div className="relative flex justify-center text-xs uppercase">
-          <span className="bg-background px-2 text-muted-foreground">
-            Or continue with
-          </span>
-        </div>
-      </div>
-      <button
-        type="button"
-        className={cn(buttonVariants({ variant: "outline" }))}
-        onClick={() => {
-          setIsGitHubLoading(true)
-          signIn("google")
-        }}
-        disabled={isLoading || isGitHubLoading}
-      >
-        {isGitHubLoading ? (
-          <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
-        ) : (
-          <Icons.gitHub className="mr-2 h-4 w-4" />
-        )}{" "}
-        Github
-      </button>
     </div>
   )
 }

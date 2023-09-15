@@ -22,10 +22,6 @@ export function DocsSearch({ className,formProps,inputProps }: DocsSearchProps) 
       description: "We're still working on the search.",
     })
   }
-  console.log({
-    className, inputProps,formProps
-  });
-  
 
   return (
     <form
