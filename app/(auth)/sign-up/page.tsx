@@ -1,8 +1,6 @@
 "use client"
 
-import { Metadata } from "next"
 import Link from "next/link"
-
 import { cn } from "@/lib/utils"
 import { Button, buttonVariants } from "@/components/ui/button"
 import { Icons } from "@/components/icons"
@@ -10,23 +8,21 @@ import { UserAuthForm } from "@/components/user-auth-form"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
 import { Input } from "@/components/ui/input"
+import { UserSignUpForm } from "@/components/user-sign-up-form"
 import { UserSocialAuthForm } from "@/components/user-social-auth-form"
 
-// export const metadata: Metadata = {
-//   title: "Login",
-//   description: "Login to your account",
-// }
-
-export default function LoginPage() {
-
+export default function SignUpPage() {
+  const navs = [
+    {
+      name: "Login",
+      href: "/login",
+    },
+    {
+      name: "Sign up",
+      href: "/sign-up",
+    },
+  ]
   const pathName = usePathname()
-  const navs = [{
-    name: "Login",
-    href: "/login",
-  },{
-    name:"Sign up",
-    href: "/sign-up",
-  }]
   return (
     <div className=" flex  flex-col items-center justify-center">
       <Link
@@ -58,13 +54,13 @@ export default function LoginPage() {
           </h1>
         </div>
         <div className="mx-auto w-full max-w-3xl px-8 pt-16  2xl:px-20  ">
-        <div className="flex ">
+          <div className="flex ">
             {navs.map((nav, index) => (
               <Link
                 key={nav.name}
                 href={nav.href}
                 className={cn(
-                  "text-3xl mr-12 font-semibold text-gray-700 decoration-pink-600 decoration-wavy underline-offset-8 hover:underline",
+                  "mr-12 text-3xl font-semibold text-gray-700 decoration-pink-600 decoration-wavy underline-offset-8 hover:underline",
                   {
                     "text-black underline": pathName === nav.href,
                   }
@@ -74,6 +70,7 @@ export default function LoginPage() {
               </Link>
             ))}
           </div>
+
           <UserSocialAuthForm className="mt-16" />
           <div className="relative">
             <div className="absolute inset-0 flex items-center">
@@ -85,7 +82,7 @@ export default function LoginPage() {
               </span>
             </div>
           </div>
-          <UserAuthForm />
+          <UserSignUpForm />
         </div>
       </div>
     </div>
