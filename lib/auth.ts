@@ -14,8 +14,6 @@ import { siteConfig } from "@/config/site"
 import { db } from "@/lib/db"
 import { compare, hash } from 'bcrypt'
 
-const postmarkClient = new Client(env.POSTMARK_API_TOKEN)
-
 export const authOptions: NextAuthOptions = {
   // huh any! I know.
   // This is a temporary fix for prisma client.
@@ -63,11 +61,12 @@ export const authOptions: NextAuthOptions = {
         const user = await db.user.findUnique({
           where: {
             email: identifier,
-          },
-          select: {
-            emailVerified: true,
-          },
+          }
         })
+
+        if(user) {
+          throw new Error('User not found')
+        }
 
         // user?.emailVerified ? SIGN IN TEMPLATE : ACTIVATION TEMPLATE
         const { host } = new URL(url)
@@ -110,7 +109,7 @@ export const authOptions: NextAuthOptions = {
             email: email,
           },
         })
-
+        
         if (dbUser && dbUser.password) {
           // Compare password
           const isValid = await compare(password, dbUser.password)
@@ -144,18 +143,16 @@ export const authOptions: NextAuthOptions = {
       // You can pass any HTML attribute to the <input> tag through the object.
       credentials: {
         email: { label: "Email", type: "text", placeholder: "TheAnhNe" },
-        password: { label: "Password", type: "password" }
+        password: { label: "Password", type: "password" },
+        username: { label: "Username", type: "text" }
       },
       async authorize(credentials, req) {
         // Add logic here to look up the user from the credentials supplied
-        const { email, password } = credentials as {
+        const { email, password, username } = credentials as {
           email: string
           password: string
+          username: string
         }
-
-        console.log({email, password});
-        
-
         const dbUser = await db.user.findFirst({
           where: {
             email: email,
@@ -167,6 +164,8 @@ export const authOptions: NextAuthOptions = {
           const dbUser = await db.user.create({
             data: {
               email: email,
+              name: username,
+              emailVerified: new Date(),
               password: await hash(password, 12)
             }
           })

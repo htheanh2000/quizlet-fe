@@ -8,17 +8,17 @@ import { useForm } from "react-hook-form"
 import * as z from "zod"
 
 import { cn } from "@/lib/utils"
-import { userAuthSchema } from "@/lib/validations/auth"
+import { userAuthSignUpSchema } from "@/lib/validations/auth"
 import { Button, buttonVariants } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { toast } from "@/components/ui/use-toast"
 import { Icons } from "@/components/icons"
 import Link from "next/link"
-
+import { useRouter } from 'next/navigation'
 interface UserSignUpProps extends React.HTMLAttributes<HTMLDivElement> {}
 
-type FormData = z.infer<typeof userAuthSchema>
+type FormData = z.infer<typeof userAuthSignUpSchema>
 
 export function UserSignUpForm({ className, ...props }: UserSignUpProps) {
   const {
@@ -26,44 +26,62 @@ export function UserSignUpForm({ className, ...props }: UserSignUpProps) {
     handleSubmit,
     formState: { errors },
   } = useForm<FormData>({
-    resolver: zodResolver(userAuthSchema),
+    resolver: zodResolver(userAuthSignUpSchema),
   })
   const [isLoading, setIsLoading] = React.useState<boolean>(false)
-  const [isGmailLoading, setIsGmailLoading] = React.useState<boolean>(false)
-  const [isFacebookLoading, setIsFacebookLoading] =
-    React.useState<boolean>(false)
-  const [isGitHubLoading, setIsGitHubLoading] = React.useState<boolean>(false)
   const searchParams = useSearchParams()
+  const router = useRouter()
 
   async function onSubmit(data: FormData) {
     setIsLoading(true)
-    // const signInResult = await signIn("email", {
-    //   email: data.email.toLowerCase(),
-    //   redirect: false,
-    //   callbackUrl: searchParams?.get("from") || "/dashboard",
-    // })
-    console.log("sign-up on submission")
-
-    const signInResult = await signIn("sign-in", {
-      email: data.email.toLowerCase(),
-      password: data.password,
-      redirect: false,
-    })
-    console.log("signInResult", signInResult)
-    setIsLoading(false)
-
-    if (!signInResult?.ok) {
+    const {email, password, confirmPassword, username} = data 
+    if(!email || !password || !username || !confirmPassword) { 
+      setIsLoading(false)
       return toast({
-        title: "Something went wrong.",
-        description: "Your sign in request failed. Please try again.",
+        title: "Please enter all required fields",
         variant: "destructive",
       })
     }
 
-    return toast({
-      title: "Check your email",
-      description: "We sent you a login link. Be sure to check your spam too.",
+    if(password !== confirmPassword) { 
+      setIsLoading(false)
+      return toast({
+        title: "Password do not match with Confirm password",
+        variant: "destructive",
+      })
+    }
+
+    const strongPasswordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@#$%^&+=!*_])[A-Za-z\d@#$%^&+=!*_]{8,}$/;
+
+    if(!strongPasswordRegex.test(password)) {
+      setIsLoading(false)
+      return toast({
+        title: "Password Error ",
+        description: "uppercase letters, lowercase letters, digits, and special characters with a minimum length of 8 characters",
+        variant: "destructive",
+      })
+    }
+
+    const signUpResult = await signIn("sign-up", {
+      email: email.toLowerCase(),
+      username: username.toLowerCase(),
+      password: password,
+      redirect: false,
     })
+
+    if (!signUpResult?.ok) {
+      return toast({
+        title: "Something went wrong.",
+        description: signUpResult?.error,
+        variant: "destructive",
+      })
+    }
+
+    toast({
+      title: "Sign up successfully",
+    })
+
+    return router.push('/dashboard')
   }
 
   return (
@@ -81,8 +99,17 @@ export function UserSignUpForm({ className, ...props }: UserSignUpProps) {
             autoCapitalize="none"
             autoComplete="email"
             autoCorrect="off"
-            disabled={isLoading || isGitHubLoading}
+            disabled={isLoading }
             {...register("email")}
+          ></Input>
+        </div>
+        <div className="mt-6">
+          <label>User Name</label>
+          <Input
+            id="username"
+            {...register("username")}
+            className="mt-2 h-14"
+            placeholder="Your name"
           ></Input>
         </div>
         <div className="mt-6">
@@ -93,6 +120,16 @@ export function UserSignUpForm({ className, ...props }: UserSignUpProps) {
             {...register("password")}
             className="mt-2 h-14"
             placeholder="Type your password"
+          ></Input>
+        </div>
+        <div className="mt-6">
+          <label>Confirm Password</label>
+          <Input
+            id="confirmPassword"
+            type="password"
+            {...register("confirmPassword")}
+            className="mt-2 h-14"
+            placeholder="Confirm your password"
           ></Input>
         </div>
         <p className="mt-4 text-center text-sm font-light">
@@ -115,15 +152,12 @@ export function UserSignUpForm({ className, ...props }: UserSignUpProps) {
         >
           Sign Up
         </Button>
-      </form>
-      <Button
-        variant="outline"
-        className="flex h-16 w-full items-center justify-center border-2 border-gray-200 p-0"
-      >
-        <Link href="/sign-up" className="ml-1 font-semibold">
-          Already have an account ? Log in
+        <Link href="/sign-in" className="float-right mt-2 text-sm hover:underline">
+          Already have an account ?
         </Link>
-      </Button>
+      </form>
+      
+     
     </div>
   )
 }

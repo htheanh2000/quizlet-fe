@@ -11,10 +11,9 @@ import { cn } from "@/lib/utils"
 import { userAuthSchema } from "@/lib/validations/auth"
 import { Button, buttonVariants } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
 import { toast } from "@/components/ui/use-toast"
-import { Icons } from "@/components/icons"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
@@ -29,21 +28,10 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
     resolver: zodResolver(userAuthSchema),
   })
   const [isLoading, setIsLoading] = React.useState<boolean>(false)
-  const [isGmailLoading, setIsGmailLoading] = React.useState<boolean>(false)
-  const [isFacebookLoading, setIsFacebookLoading] =
-    React.useState<boolean>(false)
-  const [isGitHubLoading, setIsGitHubLoading] = React.useState<boolean>(false)
-  const searchParams = useSearchParams()
-
+  const router = useRouter()
   async function onSubmit(data: FormData) {
 
     setIsLoading(true)
-
-    // const signInResult = await signIn("email", {
-    //   email: data.email.toLowerCase(),
-    //   redirect: false,
-    //   callbackUrl: searchParams?.get("from") || "/dashboard",
-    // })
     console.log("sign-up on submission")
 
     const signInResult = await signIn("sign-in", {
@@ -62,10 +50,11 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
       })
     }
 
-    return toast({
-      title: "Check your email",
-      description: "We sent you a login link. Be sure to check your spam too.",
+    toast({
+      title: "Sign in successfully",
     })
+
+    return router.push('/dashboard')
   }
   
   return (
@@ -124,7 +113,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
             autoCapitalize="none"
             autoComplete="email"
             autoCorrect="off"
-            disabled={isLoading || isGitHubLoading}
+            disabled={isLoading}
             {...register("email")}
           ></Input>
         </div>
