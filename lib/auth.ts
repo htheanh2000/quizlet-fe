@@ -13,6 +13,7 @@ import { env } from "@/env.mjs"
 import { siteConfig } from "@/config/site"
 import { db } from "@/lib/db"
 import { compare, hash } from 'bcrypt'
+import { getSession } from 'next-auth/react'
 
 export const authOptions: NextAuthOptions = {
   // huh any! I know.
@@ -29,6 +30,11 @@ export const authOptions: NextAuthOptions = {
     GoogleProvider({
       clientId: env.GOOGLE_CLIENT_ID,
       clientSecret: env.GOOGLE_CLIENT_SECRET,
+
+      // https://next-auth.js.org/configuration/providers/oauth
+      // Just set allowDangerousEmailAccountLinking: true in your provider configuration to enable automatic account linking.
+
+      allowDangerousEmailAccountLinking: true
       // Add this if you need access to the RefreshToken or AccessToken for a Google account 
       // you are not using a database to persist user accounts, this may be something you need to do.
 
@@ -109,7 +115,7 @@ export const authOptions: NextAuthOptions = {
             email: email,
           },
         })
-        
+
         if (dbUser && dbUser.password) {
           // Compare password
           const isValid = await compare(password, dbUser.password)
