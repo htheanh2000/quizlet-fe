@@ -133,7 +133,7 @@ export function UserSignUpForm({ className, ...props }: UserSignUpProps) {
           ></Input>
         </div>
         <p className="mt-4 text-center text-sm font-light">
-          By clicking Sign Up, you accept Sophie's
+          By clicking Sign Up, you accept Sophie&apos;s
           <Link
             href="/terms-of-service"
             className="mx-1 font-semibold text-gray-600"

@@ -134,7 +134,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
           Forgot?
         </Link>
         <p className="mt-10 text-center text-sm font-light">
-          By clicking Log in, you accept Quizlet's
+          By clicking Log in, you accept Quizlet&apos;s
           <Link
             href="/terms-of-service"
             className="mx-1 font-semibold text-gray-600"

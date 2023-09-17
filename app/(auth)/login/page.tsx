@@ -64,7 +64,7 @@ export default function LoginPage() {
                 key={nav.name}
                 href={nav.href}
                 className={cn(
-                  "text-3xl mr-12 font-semibold text-gray-700 decoration-pink-600 decoration-wavy underline-offset-8 hover:underline",
+                  "mr-12 text-3xl font-semibold text-gray-700 decoration-pink-600 decoration-wavy underline-offset-8 hover:underline",
                   {
                     "text-black underline": pathName === nav.href,
                   }

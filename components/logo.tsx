@@ -13,7 +13,7 @@ export function Logo({ className, ...props }: LogoProps) {
     <div {...props} className={cn(className)}>
       <Link href="/" className="hidden items-center space-x-2 md:flex">
         {/* <Icons.logo color="#4255ff"/> */}
-        <span className="hidden font-bold text-2xl sm:inline-block text-[#4255ff]">
+        <span className="hidden text-2xl font-bold text-[#4255ff] sm:inline-block">
           {siteConfig.name}
         </span>
       </Link>

@@ -1,10 +1,9 @@
 {
-  "name": "taxonomy",
-  "version": "0.2.0",
+  "name": "theanh",
+  "version": "0.0.0",
   "private": true,
   "author": {
-    "name": "shadcn",
-    "url": "https://twitter.com/shadcn"
+    "name": "The Anh"
   },
   "scripts": {
     "dev": "concurrently \"contentlayer dev\" \"next dev\"",

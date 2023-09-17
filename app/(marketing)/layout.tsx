@@ -16,7 +16,7 @@ export default async function MarketingLayout({
 }: MarketingLayoutProps) {
   return (
     <div className="flex min-h-screen flex-col">
-      <header className="w-screen fixed bg-background shadow-sm z-100">
+      <header className="fixed z-100 w-screen bg-background shadow-sm">
         <div className="container ">
           <div className="flex h-20 items-center justify-between py-2">
               <MainNav items={marketingConfig.mainNav} />
@@ -26,7 +26,7 @@ export default async function MarketingLayout({
                 href="/login"
                 className={cn(
                   buttonVariants({ variant: "outline", size: "lg" }),
-                  "px-4 whitespace-nowrap mx-2"
+                  "mx-2 whitespace-nowrap px-4"
                 )}
               >
                Login
@@ -35,7 +35,7 @@ export default async function MarketingLayout({
                 href="/sign-up"
                 className={cn(
                   buttonVariants({ variant: "default", size: "lg" }),
-                  "px-4 whitespace-nowrap mx-2"
+                  "mx-2 whitespace-nowrap px-4"
                 )}
               >
                 Sign Up
