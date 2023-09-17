@@ -8,8 +8,8 @@ interface UserSocialAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export function UserSocialAuthForm({ className, ...props }: UserSocialAuthFormProps) {
   const [isGmailLoading, setIsGmailLoading] = React.useState<boolean>(false)
-  const [isFacebookLoading, setIsFacebookLoading] =
-  React.useState<boolean>(false)
+  const [isFacebookLoading, setIsFacebookLoading] = React.useState<boolean>(false)
+  const [isInstagramLoading, setIsInstagramLoading] = React.useState<boolean>(false)
 
   return (
     <div className={cn("grid gap-4", className)} {...props}>
@@ -38,7 +38,7 @@ export function UserSocialAuthForm({ className, ...props }: UserSocialAuthFormPr
           type="button"
           className={cn(
             buttonVariants({ variant: "outline" }),
-            "mb-4 w-full py-6"
+            "w-full py-6"
           )}
           onClick={() => {
             setIsFacebookLoading(true)
@@ -53,6 +53,29 @@ export function UserSocialAuthForm({ className, ...props }: UserSocialAuthFormPr
           )}{" "}
           <p className="ml-4 font-semibold">Login with Facebook</p>
         </button>
+        {/* Instagram sign in */}
+        {/* <button
+          type="button"
+          className={cn(
+            buttonVariants({ variant: "outline" }),
+            "mb-4 w-full py-6"
+          )}
+         Insufficient developer role
+          onClick={() => {
+            setIsInstagramLoading(true)
+            signIn("instagram")
+          }}
+          disabled={isInstagramLoading}
+        >
+          {isInstagramLoading ? (
+            <Icons.spinner className="mr-2 h-8 w-8 animate-spin" />
+          ) : (
+            <Icons.instagram className="mr-2 h-8 w-8" />
+          )}{" "}
+          <p className="ml-4 font-semibold">Login with Instagram</p>
+        </button> */}
     </div>
   )
 }
+
+

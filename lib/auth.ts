@@ -5,6 +5,7 @@ import GitHubProvider from "next-auth/providers/github"
 import GoogleProvider from "next-auth/providers/google";
 import FacebookProvider from "next-auth/providers/facebook";
 import CredentialsProvider from "next-auth/providers/credentials";
+import InstagramProvider from "next-auth/providers/instagram";
 
 import { createTransport, SentMessageInfo } from "nodemailer"
 import {html,text} from "@/lib/mail"
@@ -62,6 +63,14 @@ export const authOptions: NextAuthOptions = {
       // Just set allowDangerousEmailAccountLinking: true in your provider configuration to enable automatic account linking.
       allowDangerousEmailAccountLinking: true
     }),
+      InstagramProvider({
+        clientId: env.INSTAGRAM_CLIENT_ID,
+        clientSecret: env.INSTAGRAM_CLIENT_SECRET,
+          // https://next-auth.js.org/configuration/providers/oauth
+      // Just set allowDangerousEmailAccountLinking: true in your provider configuration to enable automatic account linking.
+      allowDangerousEmailAccountLinking: true
+      }),
+    
     EmailProvider({
       server: {
         // host: process.env.EMAIL_SERVER_HOST,
