@@ -50,7 +50,7 @@ export function Editor({ post }: EditorProps) {
         onReady() {
           ref.current = editor
         },
-        placeholder: "Type here to write your post...",
+        placeholder: "Type here to write your note...",
         inlineToolbar: true,
         data: body.content,
         tools: {
@@ -104,7 +104,7 @@ export function Editor({ post }: EditorProps) {
     if (!response?.ok) {
       return toast({
         title: "Something went wrong.",
-        description: "Your post was not saved. Please try again.",
+        description: "Your note was not saved. Please try again.",
         variant: "destructive",
       })
     }
@@ -112,7 +112,7 @@ export function Editor({ post }: EditorProps) {
     router.refresh()
 
     return toast({
-      description: "Your post has been saved.",
+      description: "Your note has been saved.",
     })
   }
 
@@ -134,9 +134,9 @@ export function Editor({ post }: EditorProps) {
                 Back
               </>
             </Link>
-            <p className="text-sm text-muted-foreground">
+            {/* <p className="text-sm text-muted-foreground">
               {post.published ? "Published" : "Draft"}
-            </p>
+            </p> */}
           </div>
           <button type="submit" className={cn(buttonVariants())}>
             {isSaving && (

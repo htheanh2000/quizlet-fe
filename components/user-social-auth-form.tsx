@@ -9,7 +9,7 @@ interface UserSocialAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {
 export function UserSocialAuthForm({ className, ...props }: UserSocialAuthFormProps) {
   const [isGmailLoading, setIsGmailLoading] = React.useState<boolean>(false)
   const [isFacebookLoading, setIsFacebookLoading] = React.useState<boolean>(false)
-  const [isInstagramLoading, setIsInstagramLoading] = React.useState<boolean>(false)
+  // const [isInstagramLoading, setIsInstagramLoading] = React.useState<boolean>(false)
 
   return (
     <div className={cn("grid gap-4", className)} {...props}>
@@ -38,7 +38,7 @@ export function UserSocialAuthForm({ className, ...props }: UserSocialAuthFormPr
           type="button"
           className={cn(
             buttonVariants({ variant: "outline" }),
-            "w-full py-6"
+            "mb-4 w-full py-6"
           )}
           onClick={() => {
             setIsFacebookLoading(true)

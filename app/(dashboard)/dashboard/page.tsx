@@ -8,6 +8,7 @@ import { DashboardHeader } from "@/components/header"
 import { PostCreateButton } from "@/components/post-create-button"
 import { PostItem } from "@/components/post-item"
 import { DashboardShell } from "@/components/shell"
+import { StudySetCreateButton } from "@/components/study-set-create-button"
 
 export const metadata = {
   title: "Dashboard",
@@ -37,7 +38,7 @@ export default async function DashboardPage() {
 
   return (
     <DashboardShell>
-      <DashboardHeader heading="Posts" text="Create and manage posts.">
+      <DashboardHeader heading="Note" text="Create and manage your note.">
         <PostCreateButton />
       </DashboardHeader>
       <div>
@@ -50,11 +51,11 @@ export default async function DashboardPage() {
         ) : (
           <EmptyPlaceholder>
             <EmptyPlaceholder.Icon name="post" />
-            <EmptyPlaceholder.Title>No posts created</EmptyPlaceholder.Title>
+            <EmptyPlaceholder.Title>No note created</EmptyPlaceholder.Title>
             <EmptyPlaceholder.Description>
-              You don&apos;t have any posts yet. Start creating content.
+              You don&apos;t have any note yet. Start a new note.
             </EmptyPlaceholder.Description>
-            <PostCreateButton variant="outline" />
+            <StudySetCreateButton variant="outline" />
           </EmptyPlaceholder>
         )}
       </div>

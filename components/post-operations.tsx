@@ -23,6 +23,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { toast } from "@/components/ui/use-toast"
 import { Icons } from "@/components/icons"
+import { useRouter } from "next/navigation"
 
 async function deletePost(postId: string) {
   const response = await fetch(`/api/posts/${postId}`, {
@@ -32,7 +33,7 @@ async function deletePost(postId: string) {
   if (!response?.ok) {
     toast({
       title: "Something went wrong.",
-      description: "Your post was not deleted. Please try again.",
+      description: "Your note was not deleted. Please try again.",
       variant: "destructive",
     })
   }
@@ -47,7 +48,7 @@ interface PostOperationsProps {
 export function PostOperations({ post }: PostOperationsProps) {
   const [showDeleteAlert, setShowDeleteAlert] = React.useState<boolean>(false)
   const [isDeleteLoading, setIsDeleteLoading] = React.useState<boolean>(false)
-
+  const router = useRouter()
   return (
     <>
       <DropdownMenu>
@@ -74,7 +75,7 @@ export function PostOperations({ post }: PostOperationsProps) {
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>
-              Are you sure you want to delete this post?
+              Are you sure you want to delete this note?
             </AlertDialogTitle>
             <AlertDialogDescription>
               This action cannot be undone.

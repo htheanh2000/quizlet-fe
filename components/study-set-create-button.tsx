@@ -8,13 +8,13 @@ import { ButtonProps, buttonVariants } from "@/components/ui/button"
 import { toast } from "@/components/ui/use-toast"
 import { Icons } from "@/components/icons"
 
-interface PostCreateButtonProps extends ButtonProps {}
+interface StudySetCreateButtonProps extends ButtonProps {}
 
-export function PostCreateButton({
+export function StudySetCreateButton({
   className,
   variant,
   ...props
-}: PostCreateButtonProps) {
+}: StudySetCreateButtonProps) {
   const router = useRouter()
   const [isLoading, setIsLoading] = React.useState<boolean>(false)
 
@@ -36,7 +36,7 @@ export function PostCreateButton({
     if (!response?.ok) {
       if (response.status === 402) {
         return toast({
-          title: "Limit of 3 posts reached.",
+          title: "Limit of 3 notes reached.",
           description: "Please upgrade to the PRO plan.",
           variant: "destructive",
         })
