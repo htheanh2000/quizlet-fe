@@ -3,16 +3,16 @@ import { Logo } from "./logo"
 
 const Footer = () => {
   return (
-    <footer className="relative z-10 bg-white pt-20 pb-10 ">
+    <footer className="relative z-10 bg-white pb-10 pt-20 ">
       <div className="container mx-auto">
         <div className="-mx-4 flex flex-wrap">
           <div className="w-full px-4 sm:w-2/3 lg:w-3/12">
             <div className="mb-10 w-full">
               <Logo/>
-              <p className="mb-7 text-base text-body-color">
+              <p className="text-body-color mb-7 text-base">
                 E-learning flatform
               </p>
-              <p className="flex items-center text-sm font-medium text-dark">
+              <p className="text-dark flex items-center text-sm font-medium">
                 <span className="mr-3 text-primary">
                   <svg
                     width="19"
@@ -37,12 +37,12 @@ const Footer = () => {
           </div>
           <div className="w-full px-4 sm:w-1/2 lg:w-2/12">
             <div className="mb-10 w-full">
-              <h4 className="mb-9 text-lg font-semibold text-dark">Resources</h4>
+              <h4 className="text-dark mb-9 text-lg font-semibold">Resources</h4>
               <ul>
                 <li>
                   <a
                     href="/"
-                    className="mb-2 inline-block text-base leading-loose text-body-color hover:text-primary"
+                    className="text-body-color mb-2 inline-block text-base leading-loose hover:text-primary"
                   >
                     SaaS Development
                   </a>
@@ -50,7 +50,7 @@ const Footer = () => {
                 <li>
                   <a
                     href="/"
-                    className="mb-2 inline-block text-base leading-loose text-body-color hover:text-primary"
+                    className="text-body-color mb-2 inline-block text-base leading-loose hover:text-primary"
                   >
                     Our Products
                   </a>
@@ -58,7 +58,7 @@ const Footer = () => {
                 <li>
                   <a
                     href="/"
-                    className="mb-2 inline-block text-base leading-loose text-body-color hover:text-primary"
+                    className="text-body-color mb-2 inline-block text-base leading-loose hover:text-primary"
                   >
                     User Flow
                   </a>
@@ -66,7 +66,7 @@ const Footer = () => {
                 <li>
                   <a
                     href="/"
-                    className="mb-2 inline-block text-base leading-loose text-body-color hover:text-primary"
+                    className="text-body-color mb-2 inline-block text-base leading-loose hover:text-primary"
                   >
                     User Strategy
                   </a>
@@ -76,12 +76,12 @@ const Footer = () => {
           </div>
           <div className="w-full px-4 sm:w-1/2 lg:w-2/12">
             <div className="mb-10 w-full">
-              <h4 className="mb-9 text-lg font-semibold text-dark">Company</h4>
+              <h4 className="text-dark mb-9 text-lg font-semibold">Company</h4>
               <ul>
                 <li>
                   <a
                     href="/"
-                    className="mb-2 inline-block text-base leading-loose text-body-color hover:text-primary"
+                    className="text-body-color mb-2 inline-block text-base leading-loose hover:text-primary"
                   >
                     About TailGrids
                   </a>
@@ -89,7 +89,7 @@ const Footer = () => {
                 <li>
                   <a
                     href="/"
-                    className="mb-2 inline-block text-base leading-loose text-body-color hover:text-primary"
+                    className="text-body-color mb-2 inline-block text-base leading-loose hover:text-primary"
                   >
                     Contact & Support
                   </a>
@@ -97,7 +97,7 @@ const Footer = () => {
                 <li>
                   <a
                     href="/"
-                    className="mb-2 inline-block text-base leading-loose text-body-color hover:text-primary"
+                    className="text-body-color mb-2 inline-block text-base leading-loose hover:text-primary"
                   >
                     Success History
                   </a>
@@ -105,7 +105,7 @@ const Footer = () => {
                 <li>
                   <a
                     href="/"
-                    className="mb-2 inline-block text-base leading-loose text-body-color hover:text-primary"
+                    className="text-body-color mb-2 inline-block text-base leading-loose hover:text-primary"
                   >
                     Setting & Privacy
                   </a>
@@ -115,12 +115,12 @@ const Footer = () => {
           </div>
           <div className="w-full px-4 sm:w-1/2 lg:w-2/12">
             <div className="mb-10 w-full">
-              <h4 className="mb-9 text-lg font-semibold text-dark">Quick Links</h4>
+              <h4 className="text-dark mb-9 text-lg font-semibold">Quick Links</h4>
               <ul>
                 <li>
                   <a
                     href="/"
-                    className="mb-2 inline-block text-base leading-loose text-body-color hover:text-primary"
+                    className="text-body-color mb-2 inline-block text-base leading-loose hover:text-primary"
                   >
                     Premium Support
                   </a>
@@ -128,7 +128,7 @@ const Footer = () => {
                 <li>
                   <a
                     href="/"
-                    className="mb-2 inline-block text-base leading-loose text-body-color hover:text-primary"
+                    className="text-body-color mb-2 inline-block text-base leading-loose hover:text-primary"
                   >
                     Our Services
                   </a>
@@ -136,7 +136,7 @@ const Footer = () => {
                 <li>
                   <a
                     href="/"
-                    className="mb-2 inline-block text-base leading-loose text-body-color hover:text-primary"
+                    className="text-body-color mb-2 inline-block text-base leading-loose hover:text-primary"
                   >
                     Know Our Team
                   </a>
@@ -144,7 +144,7 @@ const Footer = () => {
                 <li>
                   <a
                     href="/"
-                    className="mb-2 inline-block text-base leading-loose text-body-color hover:text-primary"
+                    className="text-body-color mb-2 inline-block text-base leading-loose hover:text-primary"
                   >
                     Download App
                   </a>
@@ -154,11 +154,11 @@ const Footer = () => {
           </div>
           <div className="w-full px-4 sm:w-1/2 lg:w-3/12">
             <div className="mb-10 w-full">
-              <h4 className="mb-9 text-lg font-semibold text-dark">Follow Us On</h4>
+              <h4 className="text-dark mb-9 text-lg font-semibold">Follow Us On</h4>
               <div className="mb-6 flex items-center">
                 <a
                   href="/"
-                  className="mr-3 flex h-8 w-8 items-center justify-center rounded-full border border-[#E5E5E5] text-dark hover:border-primary hover:bg-primary hover:text-white sm:mr-4 lg:mr-3 xl:mr-4"
+                  className="text-dark mr-3 flex h-8 w-8 items-center justify-center rounded-full border border-[#E5E5E5] hover:border-primary hover:bg-primary hover:text-white sm:mr-4 lg:mr-3 xl:mr-4"
                 >
                   <svg
                     width="8"
@@ -173,7 +173,7 @@ const Footer = () => {
                 </a>
                 <a
                   href="/"
-                  className="mr-3 flex h-8 w-8 items-center justify-center rounded-full border border-[#E5E5E5] text-dark hover:border-primary hover:bg-primary hover:text-white sm:mr-4 lg:mr-3 xl:mr-4"
+                  className="text-dark mr-3 flex h-8 w-8 items-center justify-center rounded-full border border-[#E5E5E5] hover:border-primary hover:bg-primary hover:text-white sm:mr-4 lg:mr-3 xl:mr-4"
                 >
                   <svg
                     width="16"
@@ -188,7 +188,7 @@ const Footer = () => {
                 </a>
                 <a
                   href="/"
-                  className="mr-3 flex h-8 w-8 items-center justify-center rounded-full border border-[#E5E5E5] text-dark hover:border-primary hover:bg-primary hover:text-white sm:mr-4 lg:mr-3 xl:mr-4"
+                  className="text-dark mr-3 flex h-8 w-8 items-center justify-center rounded-full border border-[#E5E5E5] hover:border-primary hover:bg-primary hover:text-white sm:mr-4 lg:mr-3 xl:mr-4"
                 >
                   <svg
                     width="16"
@@ -203,7 +203,7 @@ const Footer = () => {
                 </a>
                 <a
                   href="/"
-                  className="mr-3 flex h-8 w-8 items-center justify-center rounded-full border border-[#E5E5E5] text-dark hover:border-primary hover:bg-primary hover:text-white sm:mr-4 lg:mr-3 xl:mr-4"
+                  className="text-dark mr-3 flex h-8 w-8 items-center justify-center rounded-full border border-[#E5E5E5] hover:border-primary hover:bg-primary hover:text-white sm:mr-4 lg:mr-3 xl:mr-4"
                 >
                   <svg
                     width="14"
@@ -217,7 +217,7 @@ const Footer = () => {
                   </svg>
                 </a>
               </div>
-              <p className="text-base text-body-color">&copy; 2025 TailGrids</p>
+              <p className="text-body-color text-base">&copy; 2025 TailGrids</p>
             </div>
           </div>
         </div>
