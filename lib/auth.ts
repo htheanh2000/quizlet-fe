@@ -3,6 +3,7 @@ import { NextAuthOptions } from "next-auth"
 import EmailProvider from "next-auth/providers/email"
 import GitHubProvider from "next-auth/providers/github"
 import GoogleProvider from "next-auth/providers/google";
+import FacebookProvider from "next-auth/providers/facebook";
 import CredentialsProvider from "next-auth/providers/credentials";
 
 import { createTransport, SentMessageInfo } from "nodemailer"
@@ -49,7 +50,17 @@ export const authOptions: NextAuthOptions = {
     }),  
     GitHubProvider({
       clientId: env.GITHUB_CLIENT_ID,
-      clientSecret: env.GITHUB_CLIENT_SECRET,
+      clientSecret: env.GITHUB_CLIENT_SECRET, 
+      // https://next-auth.js.org/configuration/providers/oauth
+      // Just set allowDangerousEmailAccountLinking: true in your provider configuration to enable automatic account linking.
+      allowDangerousEmailAccountLinking: true
+    }),
+    FacebookProvider({
+      clientId: env.FACEBOOK_CLIENT_ID,
+      clientSecret: env.FACEBOOK_CLIENT_SECRET,
+       // https://next-auth.js.org/configuration/providers/oauth
+      // Just set allowDangerousEmailAccountLinking: true in your provider configuration to enable automatic account linking.
+      allowDangerousEmailAccountLinking: true
     }),
     EmailProvider({
       server: {
@@ -220,4 +231,3 @@ export const authOptions: NextAuthOptions = {
     },
   },
 }
-
