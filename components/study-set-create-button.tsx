@@ -49,12 +49,12 @@ export function StudySetCreateButton({
       })
     }
 
-    const post = await response.json()
+    const studyset = await response.json()
 
     // This forces a cache invalidation.
     router.refresh()
 
-    router.push(`/editor/${post.id}`)
+    router.push(`/dashboard/study-set/${studyset.id}`)
   }
 
   return (

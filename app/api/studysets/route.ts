@@ -41,6 +41,9 @@ export async function POST(req: Request) {
     }
 
     const { user } = session
+
+    console.log("user", user);
+    
     const subscriptionPlan = await getUserSubscriptionPlan(user.id)
 
     // If user is on a free plan.
@@ -73,6 +76,8 @@ export async function POST(req: Request) {
 
     return new Response(JSON.stringify(post))
   } catch (error) {
+    console.log("error", error);
+    
     if (error instanceof z.ZodError) {
       return new Response(JSON.stringify(error.issues), { status: 422 })
     }
