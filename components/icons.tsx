@@ -41,6 +41,7 @@ export const Icons = {
   media: Image,
   settings: Settings,
   billing: CreditCard,
+  study: CreditCard,
   ellipsis: MoreVertical,
   add: Plus,
   warning: AlertTriangle,

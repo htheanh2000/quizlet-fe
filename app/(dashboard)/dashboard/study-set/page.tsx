@@ -11,12 +11,13 @@ import { DashboardShell } from "@/components/shell"
 import { StudySetCreateButton } from "@/components/study-set-create-button"
 
 export const metadata = {
-  title: "Dashboard",
+  title: "Study Set",
 }
 
-export default async function DashboardPage() {
+export default async function StudysetPage() {
   const user = await getCurrentUser()
 
+  // Protect role
   if (!user) {
     redirect(authOptions?.pages?.signIn || "/login")
   }
@@ -38,8 +39,8 @@ export default async function DashboardPage() {
 
   return (
     <DashboardShell>
-      <DashboardHeader heading="Note" text="Create and manage your note.">
-        <PostCreateButton />
+      <DashboardHeader heading="Flashcards" text="Create and manage your flashcard.">
+        <StudySetCreateButton />
       </DashboardHeader>
       <div>
         {posts?.length ? (
@@ -51,11 +52,11 @@ export default async function DashboardPage() {
         ) : (
           <EmptyPlaceholder>
             <EmptyPlaceholder.Icon name="post" />
-            <EmptyPlaceholder.Title>No note created</EmptyPlaceholder.Title>
+            <EmptyPlaceholder.Title>No set created</EmptyPlaceholder.Title>
             <EmptyPlaceholder.Description>
-              You don&apos;t have any note yet. Start a new note.
+              You don&apos;t have any set yet. Start a new set.
             </EmptyPlaceholder.Description>
-            <PostCreateButton variant="outline" />
+            <StudySetCreateButton variant="outline" />
           </EmptyPlaceholder>
         )}
       </div>

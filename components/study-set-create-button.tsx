@@ -27,7 +27,7 @@ export function StudySetCreateButton({
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        title: "Untitled Note",
+        title: "Untitled study set",
       }),
     })
 
@@ -36,7 +36,7 @@ export function StudySetCreateButton({
     if (!response?.ok) {
       if (response.status === 402) {
         return toast({
-          title: "Limit of 3 notes reached.",
+          title: "Limit of 3 study sets reached.",
           description: "Please upgrade to the PRO plan.",
           variant: "destructive",
         })
@@ -44,7 +44,7 @@ export function StudySetCreateButton({
 
       return toast({
         title: "Something went wrong.",
-        description: "Your note was not created. Please try again.",
+        description: "Your study set was not created. Please try again.",
         variant: "destructive",
       })
     }
@@ -75,7 +75,7 @@ export function StudySetCreateButton({
       ) : (
         <Icons.add className="mr-2 h-4 w-4" />
       )}
-      New note
+      New set
     </button>
   )
 }

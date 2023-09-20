@@ -18,6 +18,11 @@ export const dashboardConfig: DashboardConfig = {
       href: "/dashboard",
       icon: "post",
     },
+    {
+      title: "Study set",
+      href: "/dashboard/study-set",
+      icon: "study",
+    },
     // {
     //   title: "Billing",
     //   href: "/dashboard/billing",

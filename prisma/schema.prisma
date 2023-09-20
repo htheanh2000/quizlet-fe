@@ -55,6 +55,8 @@ model User {
   accounts Account[]
   sessions Session[]
   Post     Post[]
+  studysets     Studyset[]   // This field represents the study sets created by the user
+
 
   stripeCustomerId       String?   @unique @map(name: "stripe_customer_id")
   stripeSubscriptionId   String?   @unique @map(name: "stripe_subscription_id")
@@ -85,4 +87,37 @@ model Post {
   author User @relation(fields: [authorId], references: [id])
 
   @@map(name: "posts")
+}
+
+// Define the Studyset table
+model Studyset {
+  id          Int       @id @default(autoincrement())
+  title       String
+  description String?
+  authorId   String?   // You can replace this with a User model reference if needed
+  createdAt   DateTime  @default(now())
+
+  // Define a one-to-many relationship with Flashcard
+  flashcards  Flashcard[]
+
+  // Define a many-to-one relationship with User
+  creator       User?     @relation(fields: [authorId], references: [id])
+  
+  @@map(name: "studysets")
+
+}
+
+// Define the Flashcard table
+model Flashcard {
+  id        Int       @id @default(autoincrement())
+  studysetId Int     // Reference to the Studyset
+  frontText String
+  backText  String
+  createdAt DateTime  @default(now())
+
+  // Define a many-to-one relationship with Studyset
+  studyset  Studyset  @relation(fields: [studysetId], references: [id])
+
+  @@map(name: "flashcards")
+
 }
