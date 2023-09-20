@@ -91,7 +91,7 @@ model Post {
 
 // Define the Studyset table
 model Studyset {
-  id          Int       @id @default(autoincrement())
+  id          String   @id @default(cuid())
   title       String
   description String?
   authorId   String?   // You can replace this with a User model reference if needed
@@ -109,8 +109,8 @@ model Studyset {
 
 // Define the Flashcard table
 model Flashcard {
-  id        Int       @id @default(autoincrement())
-  studysetId Int     // Reference to the Studyset
+  id        String   @id @default(cuid())
+  studysetId String     // Reference to the Studyset
   frontText String
   backText  String
   createdAt DateTime  @default(now())

@@ -21,7 +21,7 @@ export function StudySetCreateButton({
   async function onClick() {
     setIsLoading(true)
 
-    const response = await fetch("/api/posts", {
+    const response = await fetch("/api/studysets", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

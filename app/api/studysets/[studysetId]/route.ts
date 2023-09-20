@@ -3,11 +3,11 @@ import * as z from "zod"
 
 import { authOptions } from "@/lib/auth"
 import { db } from "@/lib/db"
-import { postPatchSchema } from "@/lib/validations/post"
+import { studysetSchema } from "@/lib/validations/studyset"
 
 const routeContextSchema = z.object({
   params: z.object({
-    postId: z.string(),
+    studysetId: z.string(),
   }),
 })
 
@@ -20,14 +20,14 @@ export async function DELETE(
     const { params } = routeContextSchema.parse(context)
 
     // Check if the user has access to this post.
-    if (!(await verifyCurrentUserHasAccessToPost(params.postId))) {
+    if (!(await verifyCurrentUserHasAccessToStudyset(params.studysetId))) {
       return new Response(null, { status: 403 })
     }
 
     // Delete the post.
     await db.post.delete({
       where: {
-        id: params.postId as string,
+        id: params.studysetId as string,
       },
     })
 
@@ -50,23 +50,24 @@ export async function PATCH(
     const { params } = routeContextSchema.parse(context)
 
     // Check if the user has access to this post.
-    if (!(await verifyCurrentUserHasAccessToPost(params.postId))) {
+    if (!(await verifyCurrentUserHasAccessToStudyset(params.studysetId))) {
       return new Response(null, { status: 403 })
     }
 
     // Get the request body and validate it.
     const json = await req.json()
-    const body = postPatchSchema.parse(json)
+    const body = studysetSchema.parse(json)
 
     // Update the post.
     // TODO: Implement sanitization for content.
-    await db.post.update({
+    await db.studyset.update({
       where: {
-        id: params.postId,
+        id: params.studysetId,
       },
       data: {
         title: body.title,
-        content: body.content,
+        description: body.description,
+        flashcards: body.flashcards
       },
     })
 
@@ -80,7 +81,7 @@ export async function PATCH(
   }
 }
 
-async function verifyCurrentUserHasAccessToPost(postId: string) {
+async function verifyCurrentUserHasAccessToStudyset(postId: string) {
   const session = await getServerSession(authOptions)
   const count = await db.post.count({
     where: {

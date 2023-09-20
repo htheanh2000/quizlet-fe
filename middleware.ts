@@ -1,6 +1,8 @@
 import { getToken } from "next-auth/jwt"
 import { withAuth } from "next-auth/middleware"
+import { getServerSession } from "next-auth/next"
 import { NextResponse } from "next/server"
+import { authOptions } from "./lib/auth"
 
 export default withAuth(
   async function middleware(req) {

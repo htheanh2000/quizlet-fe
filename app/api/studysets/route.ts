@@ -6,9 +6,9 @@ import { db } from "@/lib/db"
 import { RequiresProPlanError } from "@/lib/exceptions"
 import { getUserSubscriptionPlan } from "@/lib/subscription"
 
-const postCreateSchema = z.object({
+const studysetCreateSchema = z.object({
   title: z.string(),
-  content: z.string().optional(),
+  description: z.string().optional(),
 })
 
 export async function GET() {
@@ -20,13 +20,7 @@ export async function GET() {
     }
 
     const { user } = session
-    const posts = await db.post.findMany({
-      select: {
-        id: true,
-        title: true,
-        published: true,
-        createdAt: true,
-      },
+    const posts = await db.studyset.findMany({
       where: {
         authorId: user.id,
       },
@@ -50,9 +44,9 @@ export async function POST(req: Request) {
     const subscriptionPlan = await getUserSubscriptionPlan(user.id)
 
     // If user is on a free plan.
-    // Check if user has reached limit of 3 posts.
+    // Check if user has reached limit of 3 studysets.
     if (!subscriptionPlan?.isPro) {
-      const count = await db.post.count({
+      const count = await db.studyset.count({
         where: {
           authorId: user.id,
         },
@@ -64,12 +58,12 @@ export async function POST(req: Request) {
     }
 
     const json = await req.json()
-    const body = postCreateSchema.parse(json)
+    const body = studysetCreateSchema.parse(json)
 
-    const post = await db.post.create({
+    const post = await db.studyset.create({
       data: {
         title: body.title,
-        content: body.content,
+        description: body.description,
         authorId: session.user.id,
       },
       select: {
