@@ -5,10 +5,9 @@ import { db } from "@/lib/db"
 import { getCurrentUser } from "@/lib/session"
 import { EmptyPlaceholder } from "@/components/empty-placeholder"
 import { DashboardHeader } from "@/components/header"
-import { PostCreateButton } from "@/components/post-create-button"
-import { PostItem } from "@/components/post-item"
 import { DashboardShell } from "@/components/shell"
 import { StudySetCreateButton } from "@/components/study-set-create-button"
+import { StudysetItem } from "@/components/study-set-item"
 
 export const metadata = {
   title: "Study Set",
@@ -22,19 +21,18 @@ export default async function StudysetPage() {
     redirect(authOptions?.pages?.signIn || "/login")
   }
 
-  const posts = await db.post.findMany({
+  const studysets = await db.studyset.findMany({
     where: {
       authorId: user.id,
     },
     select: {
       id: true,
       title: true,
-      published: true,
       createdAt: true,
     },
-    orderBy: {
-      updatedAt: "desc",
-    },
+    // orderBy: {
+    //   updatedAt: "desc",
+    // },
   })
 
   return (
@@ -43,10 +41,10 @@ export default async function StudysetPage() {
         <StudySetCreateButton />
       </DashboardHeader>
       <div>
-        {posts?.length ? (
+        {studysets?.length ? (
           <div className="divide-y divide-border rounded-md border">
-            {posts.map((post) => (
-              <PostItem key={post.id} post={post} />
+            {studysets.map((studyset) => (
+              <StudysetItem key={studyset.id} studyset={studyset} />
             ))}
           </div>
         ) : (

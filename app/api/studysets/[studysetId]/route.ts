@@ -19,13 +19,13 @@ export async function DELETE(
     // Validate the route params.
     const { params } = routeContextSchema.parse(context)
 
-    // Check if the user has access to this post.
+    // Check if the user has access to this studyset.
     if (!(await verifyCurrentUserHasAccessToStudyset(params.studysetId))) {
       return new Response(null, { status: 403 })
     }
 
-    // Delete the post.
-    await db.post.delete({
+    // Delete the studyset.
+    await db.studyset.delete({
       where: {
         id: params.studysetId as string,
       },
@@ -49,7 +49,7 @@ export async function PATCH(
     // Validate route params.
     const { params } = routeContextSchema.parse(context)
 
-    // Check if the user has access to this post.
+    // Check if the user has access to this studyset.
     if (!(await verifyCurrentUserHasAccessToStudyset(params.studysetId))) {
       return new Response(null, { status: 403 })
     }
@@ -58,7 +58,7 @@ export async function PATCH(
     const json = await req.json()
     const body = studysetSchema.parse(json)
 
-    // Update the post.
+    // Update the studyset.
     // TODO: Implement sanitization for content.
     await db.studyset.update({
       where: {
@@ -81,14 +81,16 @@ export async function PATCH(
   }
 }
 
-async function verifyCurrentUserHasAccessToStudyset(postId: string) {
+async function verifyCurrentUserHasAccessToStudyset(studysetId: string) {
   const session = await getServerSession(authOptions)
-  const count = await db.post.count({
+  const count = await db.studyset.count({
     where: {
-      id: postId,
+      id: studysetId,
       authorId: session?.user.id,
     },
   })
+
+  
 
   return count > 0
 }
