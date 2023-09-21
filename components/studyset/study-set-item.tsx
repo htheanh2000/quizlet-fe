@@ -3,7 +3,6 @@ import { Studyset } from "@prisma/client"
 
 import { formatDate } from "@/lib/utils"
 import { Skeleton } from "@/components/ui/skeleton"
-import { PostOperations } from "@/components/post-operations"
 import { StudysetOperations } from "./study-set-operations"
 
 interface StudysetItemProps {

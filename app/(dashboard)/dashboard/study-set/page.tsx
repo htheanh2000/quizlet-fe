@@ -6,8 +6,8 @@ import { getCurrentUser } from "@/lib/session"
 import { EmptyPlaceholder } from "@/components/empty-placeholder"
 import { DashboardHeader } from "@/components/header"
 import { DashboardShell } from "@/components/shell"
-import { StudySetCreateButton } from "@/components/study-set-create-button"
-import { StudysetItem } from "@/components/study-set-item"
+import { StudySetCreateButton } from "@/components/studyset/study-set-create-button"
+import { StudysetItem } from "@/components/studyset/study-set-item"
 
 export const metadata = {
   title: "Study Set",
