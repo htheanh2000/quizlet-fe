@@ -27,66 +27,11 @@ export function StudysetEditor({ studyset }: StudysetEditorProps) {
   const { register, handleSubmit } = useForm<FormData>({
     resolver: zodResolver(studysetSchema),
   })
-  const ref = React.useRef<EditorJS>()
   const router = useRouter()
   const [isSaving, setIsSaving] = React.useState<boolean>(false)
-  const [isMounted, setIsMounted] = React.useState<boolean>(false)
-
-  const initializeEditor = React.useCallback(async () => {
-    const EditorJS = (await import("@editorjs/editorjs")).default
-    const Header = (await import("@editorjs/header")).default
-    const Embed = (await import("@editorjs/embed")).default
-    const Table = (await import("@editorjs/table")).default
-    const List = (await import("@editorjs/list")).default
-    const Code = (await import("@editorjs/code")).default
-    const LinkTool = (await import("@editorjs/link")).default
-    const InlineCode = (await import("@editorjs/inline-code")).default
-
-    const body = studysetSchema.parse(studyset)
-
-    if (!ref.current) {
-      const editor = new EditorJS({
-        holder: "editor",
-        onReady() {
-          ref.current = editor
-        },
-        placeholder: "Type here to write your studyset...",
-        inlineToolbar: true,
-        data: body.description ,
-        tools: {
-          header: Header,
-          linkTool: LinkTool,
-          list: List,
-          code: Code,
-          inlineCode: InlineCode,
-          table: Table,
-          embed: Embed,
-        },
-      })
-    }
-  }, [studyset])
-
-  React.useEffect(() => {
-    if (typeof window !== "undefined") {
-      setIsMounted(true)
-    }
-  }, [])
-
-  React.useEffect(() => {
-    if (isMounted) {
-      initializeEditor()
-
-      return () => {
-        ref.current?.destroy()
-        ref.current = undefined
-      }
-    }
-  }, [isMounted, initializeEditor])
-
+  
   async function onSubmit(data: FormData) {
     setIsSaving(true)
-
-    const blocks = await ref.current?.save()
 
     const response = await fetch(`/api/studysets/${studyset.id}`, {
       method: "PATCH",
@@ -94,8 +39,7 @@ export function StudysetEditor({ studyset }: StudysetEditorProps) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        title: data.title,
-        content: blocks,
+        title: data.title?.toString(),
       }),
     })
 
@@ -112,12 +56,8 @@ export function StudysetEditor({ studyset }: StudysetEditorProps) {
     router.refresh()
 
     return toast({
-      description: "Your studyset has been saved.",
+      description: "Your study set has been saved.",
     })
-  }
-
-  if (!isMounted) {
-    return null
   }
 
   return (
@@ -126,7 +66,7 @@ export function StudysetEditor({ studyset }: StudysetEditorProps) {
         <div className="flex w-full items-center justify-between">
           <div className="flex items-center space-x-10">
             <Link
-              href="/dashboard"
+              href="/study-set"
               className={cn(buttonVariants({ variant: "ghost" }))}
             >
               <>
@@ -154,14 +94,6 @@ export function StudysetEditor({ studyset }: StudysetEditorProps) {
             className="w-full resize-none appearance-none overflow-hidden bg-transparent text-5xl font-bold focus:outline-none"
             {...register("title")}
           />
-          <div id="editor" className="min-h-[500px]" />
-          <p className="text-sm text-gray-500">
-            Use{" "}
-            <kbd className="rounded-md border bg-muted px-1 text-xs uppercase">
-              Tab
-            </kbd>{" "}
-            to open the command menu.
-          </p>
         </div>
       </div>
     </form>
