@@ -35,8 +35,6 @@ export default async function EditorPage({ params }: EditorPageProps) {
 
   return (
     <div>
-        <p>id: {studyset.id}</p>
-        <p>authorId: {studyset.authorId}</p>
         <StudysetEditor studyset={studyset} />
     </div>
   )
