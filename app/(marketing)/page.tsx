@@ -9,7 +9,6 @@ import { Navigation } from "@/components/navigation"
 export default async function IndexPage() {
   return (
     <div>
-      <Navigation/>
       <HeroSection/>
       <Blog/>
       <AboutPage/>
