@@ -54,7 +54,7 @@ export function StudySetCreateButton({
     // This forces a cache invalidation.
     router.refresh()
 
-    router.push(`/dashboard/study-set/${studyset.id}`)
+    router.push(`/study-set/${studyset.id}`)
   }
 
   return (

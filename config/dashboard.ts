@@ -20,7 +20,7 @@ export const dashboardConfig: DashboardConfig = {
     },
     {
       title: "Study set",
-      href: "/dashboard/study-set",
+      href: "/study-set",
       icon: "study",
     },
     // {

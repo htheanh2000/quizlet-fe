@@ -14,7 +14,7 @@ export function StudysetItem({ studyset }: StudysetItemProps) {
     <div className="flex items-center justify-between p-4">
       <div className="grid gap-1">
         <Link
-          href={`/dashboard/study-set/${studyset.id}`}
+          href={`/study-set/${studyset.id}`}
           className="font-semibold hover:underline"
         >
           {studyset.title}

@@ -58,7 +58,7 @@ export function StudysetOperations({ studyset }: StudysetOperationsProps) {
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
           <DropdownMenuItem>
-            <Link href={`/dashboard/study-set/${studyset.id}`} className="flex w-full">
+            <Link href={`/study-set/${studyset.id}`} className="flex w-full">
               Edit
             </Link>
           </DropdownMenuItem>
