@@ -16,9 +16,10 @@ import { studysetSchema } from "@/lib/validations/studyset"
 import { buttonVariants } from "@/components/ui/button"
 import { toast } from "@/components/ui/use-toast"
 import { Icons } from "@/components/icons"
+import { FlashcardCreateCard } from "../flashcard/flashcard-create-card"
 
 interface StudysetEditorProps {
-  studyset: Pick<Studyset, "id" | "title" | "description" >
+  studyset: Pick<Studyset, "id" | "title" | "description">
 }
 
 type FormData = z.infer<typeof studysetSchema>
@@ -29,7 +30,7 @@ export function StudysetEditor({ studyset }: StudysetEditorProps) {
   })
   const router = useRouter()
   const [isSaving, setIsSaving] = React.useState<boolean>(false)
-  
+
   async function onSubmit(data: FormData) {
     setIsSaving(true)
 
@@ -39,7 +40,8 @@ export function StudysetEditor({ studyset }: StudysetEditorProps) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        title: data.title?.toString(),
+        title: data.title,
+        description: data.description,
       }),
     })
 
@@ -94,6 +96,17 @@ export function StudysetEditor({ studyset }: StudysetEditorProps) {
             className="w-full resize-none appearance-none overflow-hidden bg-transparent text-5xl font-bold focus:outline-none"
             {...register("title")}
           />
+
+          <TextareaAutosize
+            autoFocus
+            id="title"
+            defaultValue={studyset.description || ''}
+            placeholder="studyset description"
+            className="w-full resize-none appearance-none overflow-hidden bg-transparent text-xl font-semibold focus:outline-none"
+            {...register("description")}
+          />
+
+          <FlashcardCreateCard />
         </div>
       </div>
     </form>
