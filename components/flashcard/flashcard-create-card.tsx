@@ -4,9 +4,6 @@ import { Input } from "../ui/input"
 import { UploadImage } from "../upload/upload"
 
 export function FlashcardCreateCard() {
-
- 
-  
   return (
     <div className="w-full rounded border border-gray-500 p-8">
       <p className="m-0 p-0">1</p>
