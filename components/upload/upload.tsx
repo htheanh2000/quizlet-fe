@@ -44,6 +44,9 @@ export function UploadImage() {
   const onDrop = useCallback((acceptedFiles) => {
     // Loop through accepted files
     acceptedFiles.map((file) => {
+
+      uploadImageS3(file) 
+
       // Initialize FileReader browser API
       const reader = new FileReader()
       // onload callback gets called after the reader reads the file data
@@ -59,6 +62,17 @@ export function UploadImage() {
       return file
     })
   }, [])
+
+  const uploadImageS3 = async (fileInput) => {
+    const formData = new FormData()
+    formData.append("file", fileInput) // Assuming 'fileInput' is the file input element
+
+    const response = await fetch("/api/upload", {
+      method: "POST",
+      body: formData,
+    })
+
+  }
 
   const SingleImage = ({ image, index }: { image: IImage; index: number }) => {
     const ref = useRef(null) // Initialize the reference

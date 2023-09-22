@@ -2,9 +2,9 @@ import { NextRequest, NextResponse } from "next/server";
 import { v4 as uuid } from "uuid";
 import { S3Client, PutObjectCommand, GetObjectCommand } from "@aws-sdk/client-s3";
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
-
-import sharp from "sharp";
 import { env } from "@/env.mjs";
+
+export const config = { runtime: 'experimental-edge' }
 
 const s3Client = new S3Client({
     region: 'ap-southeast-1',
@@ -19,9 +19,6 @@ async function uploadImageToS3(
   fileName: string,
   type: string
 ): Promise<string> {
-//   const resizedImageBuffer = await sharp(file)
-//     .resize(400, 500) // Specify your desired width or height for resizing
-//     .toBuffer();
 
   const params = {
     Bucket: 'quizzlet',
@@ -40,7 +37,12 @@ async function uploadImageToS3(
 
 export async function POST(request: NextRequest) {
   try {
-    const formData = await request.formData();
+
+    // After some research, I found that the problem was with the version of NodeJS I was using. 
+    //I was running version 18.10, but when I upgraded to version 20.1.0 (which is the current version at the time of writing), 
+    //the formData started to work.
+
+    let formData = await request.formData();
     const file = formData.get("file") as Blob | null;
     
     if (!file) {
@@ -66,6 +68,19 @@ export async function POST(request: NextRequest) {
     // NextResponse.json({ message: "Error uploading image" });
   }
 }
+
+// export async function POST(request: NextRequest) {
+
+//     try {
+//         const body =  request.body;
+//     } catch (e) {
+//       console.log(e)
+//       return new Response("fail")
+//     }
+  
+//     return new Response("success")
+//   }
+  
 
 export async function GET(request: NextRequest) {
       return new Response("Requires Pro Plan")
