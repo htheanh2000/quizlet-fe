@@ -41,6 +41,41 @@ export async function DELETE(
   }
 }
 
+
+export async function GET(
+  req: Request,
+  context: z.infer<typeof routeContextSchema>
+) {
+  try {
+    // Validate the route params.
+    const { params } = routeContextSchema.parse(context)
+
+    const session = await getServerSession(authOptions)
+    const data = await db.studyset.findFirst({
+      where: {
+        id: params.studysetId,
+        authorId: session?.user.id,
+      },
+      include: {
+        flashcards: {
+          orderBy: {
+            // TODO: order by order property
+            createdAt: 'desc',
+          }
+        },
+      }
+    })
+
+    return new Response(JSON.stringify(data))
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      return new Response(JSON.stringify(error.issues), { status: 422 })
+    }
+
+    return new Response(null, { status: 500 })
+  }
+}
+
 export async function PATCH(
   req: Request,
   context: z.infer<typeof routeContextSchema>
@@ -89,8 +124,6 @@ async function verifyCurrentUserHasAccessToStudyset(studysetId: string) {
       authorId: session?.user.id,
     },
   })
-
-  
 
   return count > 0
 }
