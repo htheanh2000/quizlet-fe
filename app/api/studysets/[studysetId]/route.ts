@@ -8,6 +8,7 @@ import { studysetSchema } from "@/lib/validations/studyset"
 const routeContextSchema = z.object({
   params: z.object({
     studysetId: z.string(),
+    flashcards: z.any(),
   }),
 })
 
@@ -83,7 +84,8 @@ export async function PATCH(
   try {
     // Validate route params.
     const { params } = routeContextSchema.parse(context)
-
+    console.log("params", params);
+    
     // Check if the user has access to this studyset.
     if (!(await verifyCurrentUserHasAccessToStudyset(params.studysetId))) {
       return new Response(null, { status: 403 })
@@ -92,6 +94,17 @@ export async function PATCH(
     // Get the request body and validate it.
     const json = await req.json()
     const body = studysetSchema.parse(json)
+
+      // Find the Studyset by ID
+      const studyset = await db.studyset.findUnique({
+        where: {
+          id: params.studysetId,
+        },
+      });
+  
+      if (!studyset) {
+        return new Response('Studyset not found', { status: 403 });
+      }
 
     // Update the studyset.
     // TODO: Implement sanitization for content.
@@ -102,12 +115,31 @@ export async function PATCH(
       data: {
         title: body.title,
         description: body.description,
-        flashcards: body.flashcards
       },
     })
 
+    if(body.flashcards) {
+// Update each Flashcard in the Studyset
+      for (const flashcard of body.flashcards) {
+        console.log("flashcards", flashcard);
+        
+        await db.flashcard.update({
+          where: {
+            id: flashcard.id,
+          },
+          data: {
+            frontText: flashcard.frontText,
+            backText: flashcard.backText,
+          },
+        });
+      }
+
+    }
+    
     return new Response(null, { status: 200 })
   } catch (error) {
+    console.log("error", error);
+    
     if (error instanceof z.ZodError) {
       return new Response(JSON.stringify(error.issues), { status: 422 })
     }

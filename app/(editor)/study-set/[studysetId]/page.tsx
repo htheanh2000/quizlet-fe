@@ -35,8 +35,6 @@ export default async function EditorPage({ params }: EditorPageProps) {
   }
 
   const studyset = await getstudysetForUser(params.studysetId, user.id)
-
-  console.log("studyset", studyset);
   
   if (!studyset) {
     notFound()

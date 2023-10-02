@@ -24,7 +24,7 @@ interface StudysetEditorProps {
 type FormData = z.infer<typeof studysetSchema>
 
 export function StudysetEditor({ studyset, flashcards }: StudysetEditorProps) {
-  const { register, handleSubmit } = useForm<FormData>({
+  const { register, handleSubmit, setValue , reset} = useForm<FormData>({
     resolver: zodResolver(studysetSchema),
   })
   const router = useRouter()
@@ -37,14 +37,9 @@ export function StudysetEditor({ studyset, flashcards }: StudysetEditorProps) {
 
     const response = await fetch(`/api/studysets/${studyset.id}`, {
       method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        title: data.title,
-        description: data.description,
-      }),
+      body: JSON.stringify(data),
     })
+    console.log("data", data)
 
     setIsSaving(false)
 
@@ -79,6 +74,15 @@ export function StudysetEditor({ studyset, flashcards }: StudysetEditorProps) {
         variant: "destructive",
       })
     }
+    const responseBody = (await response.json())
+    flashcards.push({
+      id: responseBody.id,
+      frontText: "",
+      backText: ""
+    })
+
+    console.log("flashcards", flashcards);
+    reset()
     router.refresh()
   }
 
@@ -123,14 +127,18 @@ export function StudysetEditor({ studyset, flashcards }: StudysetEditorProps) {
               className="w-full resize-none appearance-none overflow-hidden bg-transparent text-xl font-semibold focus:outline-none"
               {...register("description")}
             />
-            {flashcards.map((flashcard, index) => (
-              <FlashcardCreateCard
-                className="mb-4"
-                key={flashcard.id}
-                index={index}
-                flashcard={flashcard}
-              />
-            ))}
+            {flashcards.map((flashcard, index) => {
+              return (
+                <FlashcardCreateCard
+                  className="mb-4"
+                  key={flashcard.id}
+                  index={index}
+                  flashcard={flashcard}
+                  register={register}
+                  setValue={setValue}
+                />
+              )
+            })}
 
             {/* Set type="button" to change that. type="submit" is the default */}
             <Button
